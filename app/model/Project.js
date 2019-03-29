@@ -3,9 +3,13 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const ProjectSchema = new Schema({
+  // demand_user_id: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: 'user',
+  // },
   demand_user: {
-    type: Schema.Types.ObjectId,
-    ref: 'user',
+    type: Object,
+    required: true
   },
   dev_user: {
     type: Object,

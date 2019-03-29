@@ -23,11 +23,13 @@ mongoose.connect(mongoUrl, { useNewUrlParser: true }).then(res => {
 })
 
 // 路由
-const user = require('./routes/api/user')
+const user = require('./app/routes/api/user')
 app.use('/api/user', user)
-const project = require('./routes/api/project')
+const project = require('./app/routes/api/project')
 app.use('/api/project', project)
-const upload = require('./routes/api/upload')
+const msg = require('./app/routes/api/msg')
+app.use('/api/msg', msg)
+const upload = require('./app/routes/api/upload')
 app.use('/api/upload', upload)
 
 

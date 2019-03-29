@@ -2,7 +2,7 @@
 ### 获取全部项目
 GET http://localhost:4000/api/project HTTP/1.1
 content-type: application/json
-# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOWNiMzE3YjJiY2I4NjZhMzE2ZTYzZCIsInBhc3N3b3JkIjoiJDJhJDEwJEhuUi5ZZTIvaGVSdDU3VC9jZC9ERC52NW43eFh5MFo0SjViUFp5Y2o5Vm9YeUtOMDJ6Li8yIiwiaWF0IjoxNTUzODI0Mzg2LCJleHAiOjE1NTM4Mjc5ODZ9.oWJfVij7VJC43NHMQuJXLu1RDI2drYHa2GxDSxAyOeU
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOWRkZDA1MjY3ZjQ3ODY3ZDhhMWNiZSIsInBhc3N3b3JkIjoiJDJhJDEwJGRHUi9SNUtJWFYxZTVqQi53UGRWd3V5bXFIMWdSaDJuZ3htZ3hoQ0IzL3JrQTh5MVlpUS91IiwiaWF0IjoxNTUzODUwNDYxLCJleHAiOjE1NTM4NTc2NjF9.YCjQoBap9ND_Bc4Fd5kvcq05-7fZ8BcOYgylX3ZSNPA
 
 
 
@@ -11,9 +11,9 @@ content-type: application/json
 
 
 ### 获取项目详情
-GET http://localhost:4000/api/project/5c9d786fe0c1ff9863a524d3 HTTP/1.1
+GET http://localhost:4000/api/project/5c9db04c8f6828764bc907d9 HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOWNiMzE3YjJiY2I4NjZhMzE2ZTYzZCIsInBhc3N3b3JkIjoiJDJhJDEwJEhuUi5ZZTIvaGVSdDU3VC9jZC9ERC52NW43eFh5MFo0SjViUFp5Y2o5Vm9YeUtOMDJ6Li8yIiwiaWF0IjoxNTUzODI0Mzg2LCJleHAiOjE1NTM4Mjc5ODZ9.oWJfVij7VJC43NHMQuJXLu1RDI2drYHa2GxDSxAyOeU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOWRkZDA1MjY3ZjQ3ODY3ZDhhMWNiZSIsInBhc3N3b3JkIjoiJDJhJDEwJGRHUi9SNUtJWFYxZTVqQi53UGRWd3V5bXFIMWdSaDJuZ3htZ3hoQ0IzL3JrQTh5MVlpUS91IiwiaWF0IjoxNTUzODUwNDYxLCJleHAiOjE1NTM4NTc2NjF9.YCjQoBap9ND_Bc4Fd5kvcq05-7fZ8BcOYgylX3ZSNPA
 
 
 
@@ -25,7 +25,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOWNiMzE3Y
 ### 创建项目
 POST http://localhost:4000/api/project HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOWNiMzE3YjJiY2I4NjZhMzE2ZTYzZCIsInBhc3N3b3JkIjoiJDJhJDEwJEhuUi5ZZTIvaGVSdDU3VC9jZC9ERC52NW43eFh5MFo0SjViUFp5Y2o5Vm9YeUtOMDJ6Li8yIiwiaWF0IjoxNTUzODI0Mzg2LCJleHAiOjE1NTM4Mjc5ODZ9.oWJfVij7VJC43NHMQuJXLu1RDI2drYHa2GxDSxAyOeU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOWRkZDA1MjY3ZjQ3ODY3ZDhhMWNiZSIsInBhc3N3b3JkIjoiJDJhJDEwJGRHUi9SNUtJWFYxZTVqQi53UGRWd3V5bXFIMWdSaDJuZ3htZ3hoQ0IzL3JrQTh5MVlpUS91IiwiaWF0IjoxNTUzODUwNDYxLCJleHAiOjE1NTM4NTc2NjF9.YCjQoBap9ND_Bc4Fd5kvcq05-7fZ8BcOYgylX3ZSNPA
 
 {
   "title": "post创建项目1",
@@ -43,26 +43,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOWNiMzE3Y
 
 
 ### 项目评论
-PUT http://localhost:4000/api/project/5c9d786fe0c1ff9863a524d3 HTTP/1.1
+PATCH http://localhost:4000/api/project/5c9ddda2d0c96d87459962ce HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOWNiMzE3YjJiY2I4NjZhMzE2ZTYzZCIsInBhc3N3b3JkIjoiJDJhJDEwJEhuUi5ZZTIvaGVSdDU3VC9jZC9ERC52NW43eFh5MFo0SjViUFp5Y2o5Vm9YeUtOMDJ6Li8yIiwiaWF0IjoxNTUzODI0Mzg2LCJleHAiOjE1NTM4Mjc5ODZ9.oWJfVij7VJC43NHMQuJXLu1RDI2drYHa2GxDSxAyOeU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOWRkZDA1MjY3ZjQ3ODY3ZDhhMWNiZSIsInBhc3N3b3JkIjoiJDJhJDEwJGRHUi9SNUtJWFYxZTVqQi53UGRWd3V5bXFIMWdSaDJuZ3htZ3hoQ0IzL3JrQTh5MVlpUS91IiwiaWF0IjoxNTUzODUwNDYxLCJleHAiOjE1NTM4NTc2NjF9.YCjQoBap9ND_Bc4Fd5kvcq05-7fZ8BcOYgylX3ZSNPA
 
 {
-  "newComments": {
-    "user": {
-      "role": 2,
-      "email": "demand1@ph.com",
-      "profile": {
-        "phone": "17864387607",
-        "name": "demand1",
-        "avatar": "https://ws1.sinaimg.cn/large/006djfE8ly1g0u1e1lzxwj30ig0igq3o.jpg",
-        "desc": "一个想做网站的产品经理"
-      },
-      "skill": "",
-      "msgs": []
-    },
-    "content": "第一条评论"
-  }
+  "content": "第2条评论"
 }
 
 
@@ -70,9 +56,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOWNiMzE3Y
 
 
 ### 项目更新
-PUT http://localhost:4000/api/project/5c9d786fe0c1ff9863a524d3 HTTP/1.1
+PATCH http://localhost:4000/api/project/5c9db04c8f6828764bc907d9 HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOWNiMzE3YjJiY2I4NjZhMzE2ZTYzZCIsInBhc3N3b3JkIjoiJDJhJDEwJEhuUi5ZZTIvaGVSdDU3VC9jZC9ERC52NW43eFh5MFo0SjViUFp5Y2o5Vm9YeUtOMDJ6Li8yIiwiaWF0IjoxNTUzODI0Mzg2LCJleHAiOjE1NTM4Mjc5ODZ9.oWJfVij7VJC43NHMQuJXLu1RDI2drYHa2GxDSxAyOeU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOWRkZDA1MjY3ZjQ3ODY3ZDhhMWNiZSIsInBhc3N3b3JkIjoiJDJhJDEwJGRHUi9SNUtJWFYxZTVqQi53UGRWd3V5bXFIMWdSaDJuZ3htZ3hoQ0IzL3JrQTh5MVlpUS91IiwiaWF0IjoxNTUzODUwNDYxLCJleHAiOjE1NTM4NTc2NjF9.YCjQoBap9ND_Bc4Fd5kvcq05-7fZ8BcOYgylX3ZSNPA
 
 {
   "title": "更新后的项目信息",
@@ -98,4 +84,4 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOWNiMzE3Y
 ### 删除项目
 DELETE http://localhost:4000/api/project/5c9d8758afe0327312b5ea3b HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOWNiMzE3YjJiY2I4NjZhMzE2ZTYzZCIsInBhc3N3b3JkIjoiJDJhJDEwJEhuUi5ZZTIvaGVSdDU3VC9jZC9ERC52NW43eFh5MFo0SjViUFp5Y2o5Vm9YeUtOMDJ6Li8yIiwiaWF0IjoxNTUzODI0Mzg2LCJleHAiOjE1NTM4Mjc5ODZ9.oWJfVij7VJC43NHMQuJXLu1RDI2drYHa2GxDSxAyOeU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOWRkZDA1MjY3ZjQ3ODY3ZDhhMWNiZSIsInBhc3N3b3JkIjoiJDJhJDEwJGRHUi9SNUtJWFYxZTVqQi53UGRWd3V5bXFIMWdSaDJuZ3htZ3hoQ0IzL3JrQTh5MVlpUS91IiwiaWF0IjoxNTUzODUwNDYxLCJleHAiOjE1NTM4NTc2NjF9.YCjQoBap9ND_Bc4Fd5kvcq05-7fZ8BcOYgylX3ZSNPA

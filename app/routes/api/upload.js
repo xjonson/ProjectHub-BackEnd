@@ -1,6 +1,6 @@
 const express = require('express')
 const Router = express.Router()
-const resTpl = require('../../config/resTpl')
+const resTpl = require('../../../config/resTpl')
 const multer = require('multer')
 const fs = require('fs')
 const path = require('path')

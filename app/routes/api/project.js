@@ -1,6 +1,6 @@
 const express = require('express')
 const Router = express.Router()
-const resTpl = require('../../config/resTpl')
+const resTpl = require('../../../config/resTpl')
 
 const Project = require('../../model/Project')
 const passport = require('passport')
@@ -49,7 +49,12 @@ Router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
   const body = req.body
   const newProject = new Project({
     ...body,
-    demand_user: req.user
+    demand_user: {
+      _id: req.user._id,
+      email: req.user.email,
+      role: req.user.role,
+      profile: req.user.profile,
+    }
   })
   newProject.save().then(project => {
     res.json(resTpl(0, project, '创建项目成功'))
@@ -60,23 +65,39 @@ Router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
 
 /**
  * @description 更新项目信息 / 添加评论
- * @method PUT /api/project/:pid
+ * @method patch /api/project/:pid
  * @access private
- * @param newComments 是否是项目
+ * @param content 是否是项目
  */
-Router.put('/:pid', passport.authenticate('jwt', { session: false }), (req, res) => {
+Router.patch('/:pid', passport.authenticate('jwt', { session: false }), (req, res) => {
   const pid = req.params.pid
   const body = req.body
-  // 项目
-  if (body.newComments) {
-    Project.findOneAndUpdate({ _id: pid }, { $push: { "comments": body.newComments } }, { new: true }).then(project => {
+  const user = req.user
+  // 如果角色是需求者，则只能发布项目的需求者可以更新、评论
+  if (user.role === 2) {
+    Project.findOne({ _id: pid }).then(project => {
+      if (project.demand_user.email !== user.email) return res.json(resTpl(1, null, '您无法更新或评论其他需求者发布的项目'))
+    })
+  }
+  // 项目评论
+  if (body.content) {
+    const newComments = {
+      content: body.content,
+      user: {
+        _id: req.user._id,
+        email: req.user.email,
+        profile: req.user.profile,
+        role: req.user.role,
+      },
+    }
+    Project.findOneAndUpdate({ _id: pid }, { $push: { "comments": newComments } }, { new: true }).then(project => {
       if (!project) return res.json(resTpl(1, null, '没有找到项目信息'))
       res.json(resTpl(0, project, '评论成功'))
     }).catch(err => {
       console.log(err);
     })
   }
-  // 更新项目
+  // 更新项目信息
   else {
     Project.findOneAndUpdate({ _id: pid }, { $set: body }, { new: true }).then(project => {
       if (!project) return res.json(resTpl(1, null, '没有找到项目信息'))
@@ -96,7 +117,7 @@ Router.put('/:pid', passport.authenticate('jwt', { session: false }), (req, res)
  */
 Router.delete('/:pid', passport.authenticate('jwt', { session: false }), (req, res) => {
   const pid = req.params.pid
-  if (!pid) res.json(resTpl(1, '', '项目id不存在'))
+  if (!pid) return res.json(resTpl(1, '', '项目id不存在'))
   // 验证通过
   Project.findOne({ _id: pid }).then(project => {
     if (project) {

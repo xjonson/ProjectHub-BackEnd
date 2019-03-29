@@ -1,8 +1,8 @@
 const express = require('express')
 const Router = express.Router()
 const User = require('../../model/User')
-const resTpl = require('../../config/resTpl')
-const keys = require('../../config/keys')
+const resTpl = require('../../../config/resTpl')
+const keys = require('../../../config/keys')
 const bcrypt = require('bcrypt-nodejs')
 const jwt = require('jsonwebtoken')
 const passport = require('passport')
@@ -27,18 +27,19 @@ Router.get('/test', (req, res) => {
 Router.post('/register', (req, res) => {
   const { msg, isValid } = validatorReg(req.body)
   // 不通过
-  if (!isValid) res.json(resTpl(1, null, msg))
+  if (!isValid) return res.json(resTpl(1, null, msg))
   // 通过
   const body = req.body
-  // 查询是否有重复名称
+  // 查询是否有重复邮箱
   User.findOne({ email: body.email }).then(user => {
     // 邮箱已被注册
-    if (user) return res.json(resTpl(1, null, '名称已被注册'))
+    if (user) return res.json(resTpl(1, null, '邮箱已被注册'))
     // 创建new user插入数据库
     const newUser = new User({
       email: body.email,
       password: body.password,
       role: body.role,
+      profile: body.profile
     })
     // 加密密码
     bcrypt.hash(newUser.password, null, null, (err, hash_pwd) => {
@@ -46,7 +47,7 @@ Router.post('/register', (req, res) => {
       newUser.password = hash_pwd
       // 数据库存储
       newUser.save().then(user => {
-        res.json(resTpl(0, null, '注册成功'))
+        res.json(resTpl(0, user, '注册成功'))
       }).catch(err => {
         console.log(err);
       })
@@ -80,14 +81,15 @@ Router.post('/login', (req, res) => {
       if (!isMatch) return res.json(resTpl(1, null, '密码错误'))
       // 匹配成功 使用jwt生产token
       const rule = { id: user.id, password: user.password }
-      const expiresIn = 60 * 60 // 60秒 * 60 = 一小时
+      const expiresIn = 60 * 60 * 2 // 60秒 * 60 * 2 = 2小时
       jwt.sign(rule, keys.jwtSecret, { expiresIn }, (err, token) => {
         if (err) throw err
         // 生成token
         const data = {
           id: user._id,
           email: user.email,
-          // avatar: user.avatar,
+          profile: user.profile,
+          role: user.role,
           token: `Bearer ${token}`
         }
         res.json(resTpl(0, data, '登录成功'))
@@ -101,7 +103,20 @@ Router.post('/login', (req, res) => {
 
 /**
  * @description 获取用户信息
- * @method get /api/user
+ * @method get /api/user/:uid
+ * @access private
+ */
+Router.get('/:uid', passport.authenticate('jwt', { session: false }), (req, res) => {
+  const uid = req.params.uid
+  User.findOne({ _id: uid }).then(userInfo => {
+    res.json(resTpl(0, userInfo, '获取成功'))
+  })
+})
+
+
+/**
+ * @description 获取当前登录用户信息
+ * @method get /api/user/
  * @access private
  */
 Router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
@@ -111,10 +126,10 @@ Router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
 
 /**
  * @description 添加/修改用户信息
- * @method put /api/user/:uid
+ * @method patch /api/user/:uid
  * @access private
  */
-Router.put('/:uid', passport.authenticate('jwt', { session: false }), (req, res) => {
+Router.patch('/:uid', passport.authenticate('jwt', { session: false }), (req, res) => {
   const uid = req.params.uid
   const body = req.body
   // 给用户推送信息

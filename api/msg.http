@@ -1,0 +1,50 @@
+
+# _id: req.user._id,
+# email: req.user.email,
+# role: req.user.role,
+# profile: req.user.profile,
+
+### 获取消息
+GET http://localhost:4000/api/msg HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOWRkZDA1MjY3ZjQ3ODY3ZDhhMWNiZSIsInBhc3N3b3JkIjoiJDJhJDEwJGRHUi9SNUtJWFYxZTVqQi53UGRWd3V5bXFIMWdSaDJuZ3htZ3hoQ0IzL3JrQTh5MVlpUS91IiwiaWF0IjoxNTUzODU0Njk1LCJleHAiOjE1NTM4NjE4OTV9.MkidIXorrLTNKJTxLYVJOVx82rIEGApjy_1laMV_bGI
+
+
+
+
+
+
+
+
+### 发送消息
+POST  http://localhost:4000/api/msg HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOWRkZDA1MjY3ZjQ3ODY3ZDhhMWNiZSIsInBhc3N3b3JkIjoiJDJhJDEwJGRHUi9SNUtJWFYxZTVqQi53UGRWd3V5bXFIMWdSaDJuZ3htZ3hoQ0IzL3JrQTh5MVlpUS91IiwiaWF0IjoxNTUzODUwMDExLCJleHAiOjE1NTM4NTcyMTF9.kKp4vAR76EGm1pwfJKpT0wBNfvIfjHwEjjoEz2oSYIs
+
+{
+  "user_id": "5c9d92fa7dc7ed756a01b855",
+  "project_id": "123",
+  "project_comment_id": "123",
+  "content": "123",
+  "action": 0
+}
+
+
+
+
+
+
+### 消息已读
+PATCH  http://localhost:4000/api/msg/5c9dbd9a943f3b7ace28d628 HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOWRkZDA1MjY3ZjQ3ODY3ZDhhMWNiZSIsInBhc3N3b3JkIjoiJDJhJDEwJGRHUi9SNUtJWFYxZTVqQi53UGRWd3V5bXFIMWdSaDJuZ3htZ3hoQ0IzL3JrQTh5MVlpUS91IiwiaWF0IjoxNTUzODUwMDExLCJleHAiOjE1NTM4NTcyMTF9.kKp4vAR76EGm1pwfJKpT0wBNfvIfjHwEjjoEz2oSYIs
+
+
+
+
+
+
+### 删除已读消息
+DELETE http://localhost:4000/api/msg/5c9d92fa7dc7ed756a01b855 HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOWRkZDA1MjY3ZjQ3ODY3ZDhhMWNiZSIsInBhc3N3b3JkIjoiJDJhJDEwJGRHUi9SNUtJWFYxZTVqQi53UGRWd3V5bXFIMWdSaDJuZ3htZ3hoQ0IzL3JrQTh5MVlpUS91IiwiaWF0IjoxNTUzODUwMDExLCJleHAiOjE1NTM4NTcyMTF9.kKp4vAR76EGm1pwfJKpT0wBNfvIfjHwEjjoEz2oSYIs
