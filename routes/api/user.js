@@ -3,11 +3,8 @@ const Router = express.Router()
 const User = require('../../model/User')
 const resTpl = require('../../config/resTpl')
 const keys = require('../../config/keys')
-// bcrypt 加密密码
 const bcrypt = require('bcrypt-nodejs')
-// json web token 生成token
 const jwt = require('jsonwebtoken')
-// passport 验证token
 const passport = require('passport')
 
 // validate
@@ -108,13 +105,7 @@ Router.post('/login', (req, res) => {
  * @access private
  */
 Router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
-  const userInfo = {
-    id: req.user._id,
-    email: req.user.email,
-    profile: req.user.profile,
-    msgs: req.user.msgs,
-    skill: req.user.skill
-  }
+  const userInfo = req.user
   res.json(resTpl(0, userInfo, '获取成功'))
 })
 
@@ -126,20 +117,30 @@ Router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
 Router.put('/:uid', passport.authenticate('jwt', { session: false }), (req, res) => {
   const uid = req.params.uid
   const body = req.body
+  // 给用户推送信息
+  if (body.newMsg) {
+    User.findOneAndUpdate({ _id: uid }, { $push: { "msgs": body.newMsg } }, { new: true }).then(user => {
+      if (!user) return res.json(resTpl(1, null, '没有找到用户信息'))
+      res.json(resTpl(0, user, '信息推送成功'))
+    }).catch(err => {
+      console.log(err);
+    })
+  }
   // 更新用户信息
-  User.findOneAndUpdate({ _id: uid }, { $set: body }, { new: true }).then(user => {
-    
-    if (!user) return res.json(resTpl(1, null, '没有找到用户信息'))
-    // 
-    const obj = {
-      _id: user.id,
-      email: user.email,
-      profile: user.profile,
-      msgs: user.msgs,
-      skill: user.skill
-    }
-    res.json(resTpl(0, obj, '编辑成功'))
-  })
+  else {
+    User.findOneAndUpdate({ _id: uid }, { $set: body }, { new: true }).then(user => {
+      if (!user) return res.json(resTpl(1, null, '没有找到用户信息'))
+      const res_user = {
+        _id: user.id,
+        email: user.email,
+        profile: user.profile,
+        msgs: user.msgs,
+        skill: user.skill
+      }
+      res.json(resTpl(0, res_user, '编辑成功'))
+    })
+
+  }
 })
 
 

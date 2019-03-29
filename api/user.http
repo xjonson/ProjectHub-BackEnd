@@ -1,0 +1,77 @@
+
+
+### 注册
+POST http://localhost:4000/api/user/register HTTP/1.1
+content-type: application/json
+
+{
+  "email": "demand1@ph.com",
+  "password": "123123",
+  "password2": "123123",
+  "role": 2
+}
+
+
+
+
+### 登录
+POST http://localhost:4000/api/user/login HTTP/1.1
+content-type: application/json
+
+{
+  "email": "demand@ph.com",
+  "password": "123123"
+}
+
+
+
+
+
+### 获取用户信息
+GET http://localhost:4000/api/user HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOWNiMzE3YjJiY2I4NjZhMzE2ZTYzZCIsInBhc3N3b3JkIjoiJDJhJDEwJEhuUi5ZZTIvaGVSdDU3VC9jZC9ERC52NW43eFh5MFo0SjViUFp5Y2o5Vm9YeUtOMDJ6Li8yIiwiaWF0IjoxNTUzODI4ODY0LCJleHAiOjE1NTM4MzI0NjR9.4qD4iU651UPUKwtbAttm_8duDjhyLOs5zWnFHsXsAHg
+
+
+
+
+
+### 更新 demand 用户信息
+PUT http://localhost:4000/api/user/5c9cb317b2bcb866a316e63d HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOWNiMzE3YjJiY2I4NjZhMzE2ZTYzZCIsInBhc3N3b3JkIjoiJDJhJDEwJEhuUi5ZZTIvaGVSdDU3VC9jZC9ERC52NW43eFh5MFo0SjViUFp5Y2o5Vm9YeUtOMDJ6Li8yIiwiaWF0IjoxNTUzODI4ODY0LCJleHAiOjE1NTM4MzI0NjR9.4qD4iU651UPUKwtbAttm_8duDjhyLOs5zWnFHsXsAHg
+
+{
+  "profile": {
+    "name": "demand"
+  }
+}
+
+
+
+
+### 给用户推送信息
+PUT http://localhost:4000/api/user/5c9d72425b02e36c7c614351 HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOWNiMzE3YjJiY2I4NjZhMzE2ZTYzZCIsInBhc3N3b3JkIjoiJDJhJDEwJEhuUi5ZZTIvaGVSdDU3VC9jZC9ERC52NW43eFh5MFo0SjViUFp5Y2o5Vm9YeUtOMDJ6Li8yIiwiaWF0IjoxNTUzODI4ODY0LCJleHAiOjE1NTM4MzI0NjR9.4qD4iU651UPUKwtbAttm_8duDjhyLOs5zWnFHsXsAHg
+
+{
+  "newMsg": {
+    "project_id": "5c9d786fe0c1ff9863a524d3",
+    "project_msg_id": "5c9d786fe0c1ff9863a524d3",
+    "from_user": {
+      "role": 2,
+      "email": "demand1@ph.com",
+      "profile": {
+        "phone": "17864387607",
+        "name": "demand1",
+        "avatar": "https://ws1.sinaimg.cn/large/006djfE8ly1g0u1e1lzxwj30ig0igq3o.jpg",
+        "desc": "一个想做网站的产品经理"
+      } 
+    },
+    "checked": true,
+    "content": "新消息content",
+    "isAction": false,
+    "action": 0
+  }
+}

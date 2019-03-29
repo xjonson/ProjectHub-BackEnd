@@ -17,21 +17,59 @@ const UserSchema = new Schema({
     required: true,
   },
   profile: {
-    avatar: String,
-    name: String,
-    phone: String,
-    desc: String
+    avatar: {
+      type: String,
+      require: false
+    },
+    name: {
+      type: String,
+      require: false
+    },
+    phone: {
+      type: String,
+      require: false
+    },
+    desc: {
+      type: String,
+      require: false
+    }
   },
   msgs: [{
-    id: String,
-    project_id: String,
-    project_msg_id: String,
-    from_user: {},
-    content: String,
-    checked: Boolean,
-    create_time: String,
-    isAction: Boolean,
-    action: Number,
+    // 项目id
+    project_id: {
+      type: String,
+      require: true
+    },
+    // 在项目的评论
+    project_msg_id: {
+      type: String,
+      require: true
+    },
+    // 来自user
+    from_user: Object,
+    content: {
+      type: String,
+      require: true
+    },
+    // 是否已读
+    checked: {
+      type: Boolean,
+      default: false,
+    },
+    // 是否是可操作信息
+    isAction: {
+      type: Boolean,
+      default: false,
+    },
+    // 4种操作
+    action: {
+      type: Number,
+      require: false
+    },
+    create_time: {
+      type: String,
+      default: Date.now()
+    },
   }],
   skill: String,
   create_time: {

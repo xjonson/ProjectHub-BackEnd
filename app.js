@@ -25,8 +25,8 @@ mongoose.connect(mongoUrl, { useNewUrlParser: true }).then(res => {
 // 路由
 const user = require('./routes/api/user')
 app.use('/api/user', user)
-const msg = require('./routes/api/msg')
-app.use('/api/msg', msg)
+const project = require('./routes/api/project')
+app.use('/api/project', project)
 const upload = require('./routes/api/upload')
 app.use('/api/upload', upload)
 
