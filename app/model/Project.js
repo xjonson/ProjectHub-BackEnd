@@ -58,6 +58,9 @@ const ProjectSchema = new Schema({
   create_time: {
     type: String,
     default: Date.now()
+  },
+  create_date: {
+    type: String
   }
 })
 

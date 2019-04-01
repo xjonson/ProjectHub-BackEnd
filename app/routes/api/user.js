@@ -36,12 +36,15 @@ Router.post('/register', (req, res) => {
     if (user) return res.json(resTpl(1, null, '邮箱已被注册'))
     // 创建new user插入数据库
     body.profile.avatar = '/api/upload/default_avatar.png'
+    const now = new Date()
+    const now_date = `${now.getFullYear()}/${now.getMonth() + 1}/${now.getDate()}`
     const newUser = new User({
       email: body.email,
       password: body.password,
       role: body.role,
       profile: body.profile,
-      create_time: new Date().getTime()
+      create_time: new Date().getTime(),
+      create_date: now_date
     })
     // 加密密码
     bcrypt.hash(newUser.password, null, null, (err, hash_pwd) => {

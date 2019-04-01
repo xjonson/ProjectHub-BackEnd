@@ -39,6 +39,9 @@ const UserSchema = new Schema({
   create_time: {
     type: Number,
     detfaul: Date.now()
+  },
+  create_date: {
+    type: String
   }
 })
 

@@ -47,6 +47,8 @@ Router.get('/:pid', passport.authenticate('jwt', { session: false }), (req, res)
  */
 Router.post('/', passport.authenticate('jwt', { session: false }), (req, res) => {
   const body = req.body
+  const now = new Date()
+  const now_date = `${now.getFullYear()}/${now.getMonth() + 1}/${now.getDate()}`
   const newProject = new Project({
     ...body,
     demand_user: {
@@ -54,6 +56,7 @@ Router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
       email: req.user.email,
       role: req.user.role,
       profile: req.user.profile,
+      create_date: now_date
     }
   })
   newProject.save().then(project => {
