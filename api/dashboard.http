@@ -1,0 +1,13 @@
+### 获取消息
+GET http://localhost:4000/api/dashboard HTTP/1.1
+content-type: application/json
+
+
+
+### 获取消息
+POST http://localhost:4000/api/dashboard HTTP/1.1
+content-type: application/json
+
+
+
+

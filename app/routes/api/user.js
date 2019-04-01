@@ -40,7 +40,8 @@ Router.post('/register', (req, res) => {
       email: body.email,
       password: body.password,
       role: body.role,
-      profile: body.profile
+      profile: body.profile,
+      create_time: new Date().getTime()
     })
     // 加密密码
     bcrypt.hash(newUser.password, null, null, (err, hash_pwd) => {

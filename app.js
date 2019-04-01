@@ -33,6 +33,8 @@ const upload = require('./app/routes/api/upload')
 app.use('/api/upload', upload)
 const skill = require('./app/routes/api/skill')
 app.use('/api/skill', skill)
+const dashboard = require('./app/routes/api/dashboard')
+app.use('/api/dashboard', dashboard)
 
 
 // passport 初始化
