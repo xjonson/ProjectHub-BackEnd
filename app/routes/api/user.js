@@ -110,20 +110,28 @@ Router.post('/login', (req, res) => {
  */
 Router.get('/:uid', passport.authenticate('jwt', { session: false }), (req, res) => {
   const uid = req.params.uid
-  User.findOne({ _id: uid }).then(userInfo => {
+  if (uid === 'self') {
+    const userInfo = req.user
     res.json(resTpl(0, userInfo, '获取成功'))
-  })
+  } else {
+    User.findOne({ _id: uid }).then(userInfo => {
+      res.json(resTpl(0, userInfo, '获取成功'))
+    })
+  }
 })
 
 
 /**
- * @description 获取当前登录用户信息
+ * @description 获取全部用户
  * @method get /api/user/
  * @access private
  */
 Router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
-  const userInfo = req.user
-  res.json(resTpl(0, userInfo, '获取成功'))
+  User.find().then(users => {
+    res.json(resTpl(0, users, '获取成功'))
+  }).catch(err => {
+    console.log(err)
+  })
 })
 
 /**
