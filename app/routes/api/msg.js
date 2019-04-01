@@ -14,8 +14,8 @@ const passport = require('passport')
 Router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
   Msg.find().then(msgs => {
     const uid = req.user._id
-    const res_msgs = msgs.filter(item => item.user_id+'' == uid+'')
-    res.json(resTpl(0, res_msgs, '获取成功'))
+    const res_msgs = msgs.filter(item => item.user_id + '' == uid + '')
+    res.json(resTpl(0, res_msgs, '消息获取成功'))
   }).catch(err => {
     console.log('err: ', err);
     throw new Error(err)
@@ -55,9 +55,11 @@ Router.patch('/:mid', passport.authenticate('jwt', { session: false }), (req, re
   const mid = req.params.mid
 
   Msg.findOne({ _id: mid }).then(msg => {
-    if (msg.user_id !== req.user._id) return res.json(resTpl(1, null, '您没有访问权限'))
+    console.log('msg: ', msg);
+    console.log('req.user: ', req.user);
+    if (msg.user_id + '' !== req.user._id + '') return res.json(resTpl(1, null, '您没有访问权限'))
 
-    Msg.updateOne({ _id: mid }, { $set: { "checked": false } }, { new: true }).then(newMsg => {
+    Msg.updateOne({ _id: mid }, { $set: { "checked": true } }, { new: true }).then(newMsg => {
       console.log('newMsg: ', newMsg);
       res.json(resTpl(0, newMsg, '消息已读'))
     }).catch(err => {
@@ -74,9 +76,9 @@ Router.patch('/:mid', passport.authenticate('jwt', { session: false }), (req, re
  * @description 删除已读消息
  * @method delete /api/msg/:uid
  */
-Router.delete('/:uid', passport.authenticate('jwt', { session: false }), (req, res) => {
-  const uid = req.params.uid
-  Msg.deleteMany({ user_id: uid, checked: true}).then(msgs => {
+Router.delete('/', passport.authenticate('jwt', { session: false }), (req, res) => {
+  const uid = req.user._id
+  Msg.deleteMany({ user_id: uid, checked: true }).then(msgs => {
     console.log('msgs: ', msgs);
     res.json(resTpl(0, null, '删除成功'))
   }).catch(err => {

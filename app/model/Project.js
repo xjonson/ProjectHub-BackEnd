@@ -46,6 +46,11 @@ const ProjectSchema = new Schema({
       default: Date.now()
     },
   }],
+  applys: [{
+    user_id: String,
+    status: String,
+    deadline: Number
+  }],
   audit: {
     type: Number,
     default: 0

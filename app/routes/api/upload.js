@@ -29,10 +29,6 @@ const upload = multer({
   // 储存
   storage: multer.diskStorage({
     destination: (req, file, cb) => {
-      // 如果没有upload文件夹则自动创建
-      // if (!fs.existsSync(path.join(__dirname, './upload'))) {
-      //   fs.mkdir('./upload')
-      // }
       cb(null, './upload/');
     },
     filename: (req, file, cb) => {
@@ -49,6 +45,7 @@ const upload = multer({
  */
 const singleUpload = upload.single('files');
 Router.post('/img', (req, res) => {
+  console.log('req.file: ', req.file);
   singleUpload(req, res, (err) => {
     if (err || err instanceof multer.MulterError) {
       // limit中限制的
@@ -63,7 +60,7 @@ Router.post('/img', (req, res) => {
 // 获取图片
 Router.get('/:name', (req, res) => {
   const name = req.params.name
-  res.sendFile(path.resolve(__dirname, `../../upload/${name}`))
+  res.sendFile(path.resolve(__dirname, `../../../upload/${name}`))
 })
 
 

@@ -18,7 +18,7 @@ Router.get('/', (req, res) => {
       // item.id = item._id
       return item
     })
-    res.json(resTpl(0, res_projects, '获取成功'))
+    res.json(resTpl(0, res_projects, '项目列表获取成功'))
   }).catch(err => {
     console.log(err);
   })
@@ -33,7 +33,7 @@ Router.get('/', (req, res) => {
 Router.get('/:pid', passport.authenticate('jwt', { session: false }), (req, res) => {
   const pid = req.params.pid
   Project.findOne({ _id: pid }).then(project => {
-    res.json(resTpl(0, project, '获取成功'))
+    res.json(resTpl(0, project, '项目详情获取成功'))
   }).catch(err => {
     console.log(err);
   })
@@ -64,7 +64,7 @@ Router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
 })
 
 /**
- * @description 更新项目信息 / 添加评论
+ * @description 更新项目信息 / 添加评论 / 更新状态
  * @method patch /api/project/:pid
  * @access private
  * @param content 是否是项目
@@ -97,6 +97,24 @@ Router.patch('/:pid', passport.authenticate('jwt', { session: false }), (req, re
       console.log(err);
     })
   }
+  // 更新项目状态
+  else if (body.status) {
+    Project.findOneAndUpdate({ _id: pid }, { $set: { "status": body.status, "dev_user": body.dev_user } }, { new: true }).then(project => {
+      if (!project) return res.json(resTpl(1, null, '没有找到项目信息'))
+      res.json(resTpl(0, project, '项目状态更新成功'))
+    }).catch(err => {
+      console.log(err);
+    })
+  }
+  else if (body.apply) {
+    Project.findOneAndUpdate({ _id: pid }, { $push: { "applys": body.apply } }, { new: true }).then(project => {
+      if (!project) return res.json(resTpl(1, null, '没有找到项目信息'))
+      res.json(resTpl(0, project, '申请成功'))
+    }).catch(err => {
+      console.log(err);
+    })
+
+  }
   // 更新项目信息
   else {
     Project.findOneAndUpdate({ _id: pid }, { $set: body }, { new: true }).then(project => {
@@ -122,7 +140,7 @@ Router.delete('/:pid', passport.authenticate('jwt', { session: false }), (req, r
   Project.findOne({ _id: pid }).then(project => {
     if (project) {
       Project.deleteOne({ _id: pid }).then(project => {
-        res.json(resTpl(0, '', '删除成功'))
+        res.json(resTpl(0, '', '项目删除成功'))
       })
     } else {
       // 已删除项目不存在

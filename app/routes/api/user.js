@@ -35,6 +35,7 @@ Router.post('/register', (req, res) => {
     // 邮箱已被注册
     if (user) return res.json(resTpl(1, null, '邮箱已被注册'))
     // 创建new user插入数据库
+    body.profile.avatar = '/api/upload/default_avatar.png'
     const newUser = new User({
       email: body.email,
       password: body.password,
@@ -78,6 +79,7 @@ Router.post('/login', (req, res) => {
     if (!user) return res.json(resTpl(1, null, '用户不存在'))
     // 加密密码匹配
     bcrypt.compare(password, user.password, (err, isMatch) => {
+      if (err) throw err
       if (!isMatch) return res.json(resTpl(1, null, '密码错误'))
       // 匹配成功 使用jwt生产token
       const rule = { id: user.id, password: user.password }
@@ -156,6 +158,35 @@ Router.patch('/:uid', passport.authenticate('jwt', { session: false }), (req, re
     })
 
   }
+})
+
+
+
+/**
+ * @description 用户修改密码
+ * @method patch /api/user/password
+ * @param password
+ */
+Router.patch('/password/:uid', passport.authenticate('jwt', { session: false }), (req, res) => {
+  const oldPwd = req.body.oldPwd
+  let newPwd = req.body.newPwd
+  const user = req.user
+  // 加密密码匹配
+  bcrypt.compare(oldPwd, user.password, (err, isMatch) => {
+    if (!isMatch) return res.json(resTpl(1, null, '原密码错误'))
+    // 加密密码
+    if (err) throw err
+    bcrypt.hash(newPwd, null, null, (err, hash_pwd) => {
+      if (err) throw err
+      newPwd = hash_pwd
+      // 更新密码
+      User.findOneAndUpdate({ _id: user._id }, { $set: { 'password': newPwd } }, { new: true }).then(newUser => {
+        res.json(resTpl(0, newUser, '密码修改成功'))
+      }).catch(err => {
+        console.log(err);
+      })
+    });
+  })
 })
 
 
