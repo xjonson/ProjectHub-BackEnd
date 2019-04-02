@@ -37,9 +37,7 @@ Router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
       role: req.user.role
     }
   })
-  console.log('newMsg: ', newMsg);
   newMsg.save().then(msg => {
-    console.log('msg: ', msg);
     res.json(resTpl(0, msg, '消息推送成功'))
   }).catch(err => {
     console.log('err: ', err);
@@ -55,12 +53,9 @@ Router.patch('/:mid', passport.authenticate('jwt', { session: false }), (req, re
   const mid = req.params.mid
 
   Msg.findOne({ _id: mid }).then(msg => {
-    console.log('msg: ', msg);
-    console.log('req.user: ', req.user);
     if (msg.user_id + '' !== req.user._id + '') return res.json(resTpl(1, null, '您没有访问权限'))
 
     Msg.updateOne({ _id: mid }, { $set: { "checked": true } }, { new: true }).then(newMsg => {
-      console.log('newMsg: ', newMsg);
       res.json(resTpl(0, newMsg, '消息已读'))
     }).catch(err => {
       console.log('err: ', err);
@@ -79,7 +74,6 @@ Router.patch('/:mid', passport.authenticate('jwt', { session: false }), (req, re
 Router.delete('/', passport.authenticate('jwt', { session: false }), (req, res) => {
   const uid = req.user._id
   Msg.deleteMany({ user_id: uid, checked: true }).then(msgs => {
-    console.log('msgs: ', msgs);
     res.json(resTpl(0, null, '删除成功'))
   }).catch(err => {
     console.log('err: ', err);

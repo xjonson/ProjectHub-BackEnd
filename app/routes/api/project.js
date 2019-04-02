@@ -103,6 +103,7 @@ Router.patch('/:pid', passport.authenticate('jwt', { session: false }), (req, re
   // 更新项目状态
   else if (body.status) {
     Project.findOneAndUpdate({ _id: pid }, { $set: { "status": body.status, "dev_user": body.dev_user } }, { new: true }).then(project => {
+      console.log('project: ', project);
       if (!project) return res.json(resTpl(1, null, '没有找到项目信息'))
       res.json(resTpl(0, project, '项目状态更新成功'))
     }).catch(err => {

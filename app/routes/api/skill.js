@@ -10,7 +10,6 @@ const passport = require('passport')
  */
 Router.get('/', (req, res) => {
   Skill.find().then(skills => {
-    console.log('skills: ', skills);
     res.json(resTpl(0, skills, 'skills获取成功'))
   }).catch(err => {
     console.log('err: ', err);
