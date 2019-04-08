@@ -1,6 +1,13 @@
 {
+  "version": 2,
   "builds": [
-    { "src": "*.html", "use": "@now/public" },
-    { "src": "date.js", "use": "@now/node" }
+    { "src": "client/*", "use": "@now/static" },
+    { "src": "client/assets/*", "use": "@now/static" },
+    { "src": "app.js", "use": "@now/node" },
+    { "src": "app/model/*.js", "use": "@now/node" },
+    { "src": "app/routes/api/*.js", "use": "@now/node" },
+    { "src": "app/utils/*.js", "use": "@now/node" },
+    { "src": "app/validation/*.js", "use": "@now/node" },
+    { "src": "config/*.js", "use": "@now/node" }
   ]
 }
