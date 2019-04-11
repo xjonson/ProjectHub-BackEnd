@@ -36,9 +36,13 @@ const UserSchema = new Schema({
     required: false
   },
   skill: String,
+  audit: {
+    type: Number,
+    default: false,
+  },
   create_time: {
     type: Number,
-    detfaul: Date.now()
+    default: Date.now()
   },
   create_date: {
     type: String

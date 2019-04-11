@@ -92,10 +92,13 @@ Router.post('/login', (req, res) => {
         if (err) throw err
         // 生成token
         const data = {
-          id: user._id,
+          _id: user._id,
           email: user.email,
           profile: user.profile,
           role: user.role,
+          create_date: user.create_date,
+          create_time: user.create_time,
+          audit: user.audit,
           token: `Bearer ${token}`
         }
         res.json(resTpl(0, data, '登录成功'))
