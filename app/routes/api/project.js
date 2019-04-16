@@ -12,10 +12,21 @@ const passport = require('passport')
  * @access public
  */
 Router.get('/', (req, res) => {
-  Project.find().then(projects => {
-    const res_projects = projects.map(item => {
+  const query = req.query
+  let sql
+  if (query.price) {
+    sql = {
+      price: { $gte: query.min_price, $lte: query.max_price }
+    }
+    if (+query.cycle) sql.cycle = +query.cycle
+    if (query.skills) sql.skills = {
+      $regex: query.skills
+    }
+    console.log('sql: ', sql);
+  }
+  Project.find(sql).then(projects => {
+    const res_projects = projects.filter(item => {
       item.comments = [];
-      // item.id = item._id
       return item
     })
     res.json(resTpl(0, res_projects, '项目列表获取成功'))
