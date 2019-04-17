@@ -18,12 +18,22 @@ Router.get('/', (req, res) => {
     sql = {
       price: { $gte: query.min_price, $lte: query.max_price }
     }
-    if (+query.cycle) sql.cycle = +query.cycle
-    if (query.skills) sql.skills = {
-      $regex: query.skills
-    }
-    console.log('sql: ', sql);
   }
+  if (+query.cycle) {
+    sql = {
+      ...sql,
+      cycle: +query.cycle
+    }
+  }
+  if (query.skills) {
+    sql = {
+      ...sql,
+      skills: {
+        $regex: query.skills
+      }
+    }
+  }
+  console.log('sql: ', sql);
   Project.find(sql).then(projects => {
     const res_projects = projects.filter(item => {
       item.comments = [];
