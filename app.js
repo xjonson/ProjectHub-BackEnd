@@ -35,6 +35,8 @@ const skill = require('./app/routes/api/skill')
 app.use('/api/skill', skill)
 const dashboard = require('./app/routes/api/dashboard')
 app.use('/api/dashboard', dashboard)
+const projectStep = require('./app/routes/api/projectStep')
+app.use('/api/projectStep', projectStep)
 
 
 // passport 初始化
