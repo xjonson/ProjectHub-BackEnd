@@ -131,6 +131,7 @@ Router.patch('/:pid', passport.authenticate('jwt', { session: false }), (req, re
       console.log(err);
     })
   }
+  // 更新项目申请人
   else if (body.apply) {
     Project.findOneAndUpdate({ _id: pid }, { $push: { "applys": body.apply } }, { new: true }).then(project => {
       if (!project) return res.json(resTpl(1, null, '没有找到项目信息'))
@@ -139,6 +140,15 @@ Router.patch('/:pid', passport.authenticate('jwt', { session: false }), (req, re
       console.log(err);
     })
 
+  }
+  // 更新项目评估——类型
+  else if (body.pType) {
+    Project.findOneAndUpdate({ _id: pid }, { $set: { "project_type": body.pType } }, { new: true }).then(project => {
+      if (!project) return res.json(resTpl(1, null, '没有找到项目信息'))
+      res.json(resTpl(0, project, '项目类型设置成功'))
+    }).catch(err => {
+      console.log(err);
+    })
   }
   // 更新项目信息
   else {

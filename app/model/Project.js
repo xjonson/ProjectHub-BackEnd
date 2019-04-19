@@ -61,6 +61,18 @@ const ProjectSchema = new Schema({
   },
   create_date: {
     type: String
+  },
+  // 项目类型
+  project_type: {
+    type: String,
+  },
+  // 项目功能
+  project_fun: {
+    type: Array,
+  },
+  // 项目估价
+  project_assess: {
+    type: Number,
   }
 })
 
