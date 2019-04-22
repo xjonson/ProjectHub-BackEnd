@@ -33,7 +33,6 @@ Router.get('/', (req, res) => {
       }
     }
   }
-  console.log('sql: ', sql);
   Project.find(sql).then(projects => {
     const res_projects = projects.filter(item => {
       item.comments = [];

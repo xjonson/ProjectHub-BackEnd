@@ -9,13 +9,30 @@ const ProjectStepSchema = new Schema({
   data: [{
     title: String,
     key: String,
+    isLeaf: {
+      type: Boolean,
+      default: false
+    },
+    selected: {
+      type: Boolean,
+      default: false
+    },
     children: [{
       title: String,
       key: String,
+      isLeaf: {
+        type: Boolean,
+        default: false
+      },
+      selected: {
+        type: Boolean,
+        default: false
+      },
       children: [{
         title: String,
         key: String,
-        isLeaf: Boolean
+        isLeaf: Boolean,
+        price: Number
       }]
     }]
   }],
