@@ -149,6 +149,24 @@ Router.patch('/:pid', passport.authenticate('jwt', { session: false }), (req, re
       console.log(err);
     })
   }
+  // 更新项目评估——类型
+  else if (body.funs) {
+    // 计算预算金额
+    const assess = body.funs.reduce((total, cur) => {
+      return +total + +cur[2].price
+    }, 0)
+    Project.findOneAndUpdate({ _id: pid }, {
+      $set: {
+        "project_fun": body.funs,
+        "project_assess": assess
+      }
+    }, { new: true }).then(project => {
+      if (!project) return res.json(resTpl(1, null, '没有找到项目信息'))
+      res.json(resTpl(0, project, '项目功能设置成功'))
+    }).catch(err => {
+      console.log(err);
+    })
+  }
   // 更新项目信息
   else {
     Project.findOneAndUpdate({ _id: pid }, { $set: body }, { new: true }).then(project => {
