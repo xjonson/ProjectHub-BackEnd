@@ -14,7 +14,7 @@ const passport = require('passport')
 Router.get('/', (req, res) => {
   const query = req.query
   let sql
-  if (query.price) {
+  if (query.min_price || query.max_price) {
     sql = {
       price: { $gte: query.min_price, $lte: query.max_price }
     }
@@ -31,6 +31,18 @@ Router.get('/', (req, res) => {
       skills: {
         $regex: query.skills
       }
+    }
+  }
+  if (query.min_project_assess || query.max_project_assess) {
+    sql = {
+      ...sql,
+      project_assess: { $gte: +query.min_project_assess, $lte: +query.max_project_assess }
+    }
+  }
+  if (query.project_type) {
+    sql = {
+      ...sql,
+      project_type: query.project_type
     }
   }
   Project.find(sql).then(projects => {
