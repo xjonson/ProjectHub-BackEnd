@@ -81,7 +81,7 @@ Router.post('/login', (req, res) => {
   User.findOne({ email }).then(user => {
     // 没找到
     if (!user) return res.json(resTpl(1, null, '用户不存在'))
-    if (user.role != 1) return res.json(resTpl(1, null, '非管理员不可登录'))
+    // if (user.role != 1) return res.json(resTpl(1, null, '非管理员不可登录'))
     // 加密密码匹配
     bcrypt.compare(password, user.password, (err, isMatch) => {
       if (err) throw err
