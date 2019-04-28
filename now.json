@@ -2,19 +2,14 @@
   "version": 2,
   "builds": [
     { "src": "client/*", "use": "@now/static" },
-    { "src": "client/assets/*", "use": "@now/static" },
+    { "src": "client/assets/css/**", "use": "@now/static" },
+    { "src": "client/assets/image/**", "use": "@now/static" },
+    { "src": "client/assets/material-icons/**", "use": "@now/static" },
     { "src": "app.js", "use": "@now/node" },
     { "src": "app/model/*.js", "use": "@now/node" },
     { "src": "app/routes/api/*.js", "use": "@now/node" },
     { "src": "app/utils/*.js", "use": "@now/node" },
     { "src": "app/validation/*.js", "use": "@now/node" },
-    { "src": "config/*.js", "use": "@now/node" },
-    { "src": "app/routes/api/dashboard.js", "use": "@now/node" },
-    { "src": "app/routes/api/msg.js", "use": "@now/node" },
-    { "src": "app/routes/api/project.js", "use": "@now/node" },
-    { "src": "app/routes/api/projectStep.js", "use": "@now/node" },
-    { "src": "app/routes/api/skill.js", "use": "@now/node" },
-    { "src": "app/routes/api/upload.js", "use": "@now/node" },
-    { "src": "app/routes/api/user.js", "use": "@now/node" }
+    { "src": "config/*.js", "use": "@now/node" }
   ]
 }
