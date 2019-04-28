@@ -8,6 +8,13 @@
     { "src": "app/routes/api/*.js", "use": "@now/node" },
     { "src": "app/utils/*.js", "use": "@now/node" },
     { "src": "app/validation/*.js", "use": "@now/node" },
-    { "src": "config/*.js", "use": "@now/node" }
+    { "src": "config/*.js", "use": "@now/node" },
+    { "src": "app/routes/api/dashboard.js", "use": "@now/node" },
+    { "src": "app/routes/api/msg.js", "use": "@now/node" },
+    { "src": "app/routes/api/project.js", "use": "@now/node" },
+    { "src": "app/routes/api/projectStep.js", "use": "@now/node" },
+    { "src": "app/routes/api/skill.js", "use": "@now/node" },
+    { "src": "app/routes/api/upload.js", "use": "@now/node" },
+    { "src": "app/routes/api/user.js", "use": "@now/node" }
   ]
 }
