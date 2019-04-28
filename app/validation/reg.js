@@ -8,15 +8,15 @@ module.exports = function validatorReg(data) {
   data.password = isEmpty(data.password) ? '' : data.password
   data.password2 = isEmpty(data.password2) ? '' : data.password2
   data.role = isEmpty(data.role) ? '' : data.role
-  
+
   // 
-  if (!(data.role === 2 || data.role === 3)) {
-    msg = '身份错误'
-  }
-  if (Validator.isEmpty(data.role+'')) {
+  // if (!(data.role === 2 || data.role === 3)) {
+  //   msg = '身份错误'
+  // }
+  if (Validator.isEmpty(data.role + '')) {
     msg = '请选择身份'
   }
-  if(!Validator.equals(data.password, data.password2)) {
+  if (!Validator.equals(data.password, data.password2)) {
     msg = '两次密码不一致'
   }
   if (!Validator.isLength(data.password, { min: 4, max: 10 })) {

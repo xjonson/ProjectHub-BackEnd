@@ -81,6 +81,7 @@ Router.post('/login', (req, res) => {
   User.findOne({ email }).then(user => {
     // 没找到
     if (!user) return res.json(resTpl(1, null, '用户不存在'))
+    if (user.role != 1) return res.json(resTpl(1, null, '非管理员不可登录'))
     // 加密密码匹配
     bcrypt.compare(password, user.password, (err, isMatch) => {
       if (err) throw err
@@ -205,4 +206,23 @@ Router.patch('/password/:uid', passport.authenticate('jwt', { session: false }),
 })
 
 
+/**
+ * @desc 删除用户、管理员
+ * @method delete /api/user/:uid
+ * 
+ */
+Router.delete('/:uid', passport.authenticate('jwt', { session: false }), (req, res) => {
+  const uid = req.params.uid
+  if (!uid) return res.json(resTpl(1, '', '用户不存在'))
+  // 验证通过
+  User.findOne({ _id: uid }).then(user => {
+    if (user) {
+      User.deleteOne({ _id: uid }).then(user1 => {
+        res.json(resTpl(0, '', '用户删除成功'))
+      })
+    } else {
+      res.json(resTpl(0, '', '用户不存在'))
+    }
+  })
+})
 module.exports = Router
