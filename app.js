@@ -37,6 +37,9 @@ const dashboard = require('./app/routes/api/dashboard')
 app.use('/api/dashboard', dashboard)
 const projectStep = require('./app/routes/api/projectStep')
 app.use('/api/projectStep', projectStep)
+app.get('/client/*', (req, res) => {
+  res.sendFile(path.join(__dirname + '/client/index.html'));
+});
 
 
 // passport 初始化
@@ -46,7 +49,7 @@ require('./config/passport')(passport)
 
 
 // listen 端口
-const port = process.env.PORT ||  4000
+const port = process.env.PORT || 4000
 
 app.listen(port, () => {
   console.log(`server is running at ${port}`)
