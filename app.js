@@ -38,7 +38,7 @@ app.use('/api/dashboard', dashboard)
 const projectStep = require('./app/routes/api/projectStep')
 app.use('/api/projectStep', projectStep)
 app.get('/client/*', (req, res) => {
-  res.sendFile(path.join(__dirname + '/client/index.html'));
+  res.sendFile(path.join(__dirname + './client/index.html'));
 });
 
 
