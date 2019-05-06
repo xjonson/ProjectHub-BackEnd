@@ -11,8 +11,6 @@ const app = new express()
 // 使用body-parser中间件 要放到 使用router之前
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-// 使用session、cookie中间件 要放到route之前
-// app.use(cookieParser());
 
 
 // 链接mongodb
