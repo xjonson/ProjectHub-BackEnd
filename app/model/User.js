@@ -35,7 +35,7 @@ const UserSchema = new Schema({
     },
     required: false
   },
-  skill: String,
+  skill: [String],
   audit: {
     type: Number,
     default: false,

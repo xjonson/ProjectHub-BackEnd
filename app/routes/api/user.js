@@ -40,6 +40,7 @@ Router.post('/register', (req, res) => {
     const now_date = `${now.getFullYear()}/${now.getMonth() + 1}/${now.getDate()}`
     const newUser = new User({
       email: body.email,
+      skill: body.skill,
       password: body.password,
       role: body.role,
       profile: body.profile,
@@ -97,6 +98,7 @@ Router.post('/login', (req, res) => {
           email: user.email,
           profile: user.profile,
           role: user.role,
+          skill: user.skill || [],
           create_date: user.create_date,
           create_time: user.create_time,
           audit: user.audit,
