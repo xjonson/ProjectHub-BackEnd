@@ -68,8 +68,22 @@ Router.patch('/:mid', passport.authenticate('jwt', { session: false }), (req, re
 })
 
 /**
+ * @description 删除单个消息
+ * @method delete /api/msg/:mid
+ */
+Router.delete('/:mid', passport.authenticate('jwt', { session: false }), (req, res) => {
+  const mid = req.params.mid
+  Msg.deleteOne({ _id: mid }).then(msgs => {
+    res.json(resTpl(0, null, '删除成功'))
+  }).catch(err => {
+    console.log('err: ', err);
+    throw new Error(err)
+  })
+})
+
+/**
  * @description 删除已读消息
- * @method delete /api/msg/:uid
+ * @method delete /api/msg/
  */
 Router.delete('/', passport.authenticate('jwt', { session: false }), (req, res) => {
   const uid = req.user._id

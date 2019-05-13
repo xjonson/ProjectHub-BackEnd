@@ -47,7 +47,7 @@ Router.get('/', (req, res) => {
   }
   Project.find(sql).then(projects => {
     const res_projects = projects.filter(item => {
-      item.comments = [];
+      // item.comments = [];
       return item
     })
     res.json(resTpl(0, res_projects, '项目列表获取成功'))

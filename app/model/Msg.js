@@ -8,6 +8,9 @@ const MsgSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'user',
   },
+  project_title: {
+    type: String,
+  },
   from_user: { // 来自user 
     _id: {
       type: String

@@ -24,7 +24,7 @@ const ProjectSchema = new Schema({
     required: true
   },
   skills: {
-    type: String,
+    type: [],
   },
   cycle: {
     type: Number,
@@ -49,7 +49,7 @@ const ProjectSchema = new Schema({
   applys: [{
     user_id: String,
     status: String,
-    deadline: Number
+    can_apply_time: Number
   }],
   audit: {
     type: Number,
