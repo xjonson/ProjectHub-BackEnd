@@ -38,11 +38,8 @@ const projectStep = require('./app/routes/api/projectStep')
 app.use('/api/projectStep', projectStep)
 
 
-// client
+// static
 app.use(express.static(path.join(__dirname, 'dist')));
-app.get('/client/index.html', (req, res) => {
-  res.sendFile(path.resolve(__dirname + '/dist/client/index.html'));
-});
 
 // passport 初始化
 app.use(passport.initialize())
