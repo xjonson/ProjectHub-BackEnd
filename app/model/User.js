@@ -38,7 +38,7 @@ const UserSchema = new Schema({
   skill: [Object],
   audit: {
     type: Number,
-    default: false,
+    default: 0,
   },
   create_time: {
     type: Number,

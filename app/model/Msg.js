@@ -51,7 +51,7 @@ const MsgSchema = new Schema({
   },
   create_time: {
     type: String,
-    default: Date.now()
+    default: new Date()
   }
 })
 
